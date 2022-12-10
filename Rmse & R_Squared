@@ -12,5 +12,5 @@ for name, model in models.items():
     rmse = get_rmse(y_test, y_pred)
     r2 = get_r2(y_test, y_pred)
     print(name + " RMSE: {:.2f}".format(rmse))
-    print(name + " R_squared: {:.2f}".format(r2))
+    print(name + " R_squared: {:.5f}".format(r2))
     print('\n')
