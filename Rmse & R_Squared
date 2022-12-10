@@ -1,0 +1,16 @@
+def get_rmse(y_test, y_pred):
+    rmse = np.sqrt(np.mean((y_test - y_pred)**2))
+    return rmse
+
+def get_r2(y_test, y_pred):
+    r2 = 1 - (np.sum((y_test - y_pred)**2) / np.sum((y_test - y_test.mean())**2))
+    return r2
+
+
+for name, model in models.items():
+    y_pred = model.predict(X_test)
+    rmse = get_rmse(y_test, y_pred)
+    r2 = get_r2(y_test, y_pred)
+    print(name + " RMSE: {:.2f}".format(rmse))
+    print(name + " R_squared: {:.2f}".format(r2))
+    print('\n')
