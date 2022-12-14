@@ -1,0 +1,42 @@
+########### Imports ##############
+
+import numpy as np
+import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+from sklearn.linear_model import LinearRegression, Ridge, Lasso
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.neural_network import MLPRegressor
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from xgboost import XGBRegressor
+from lightgbm import LGBMRegressor
+from catboost import CatBoostRegressor
+
+import warnings
+warnings.filterwarnings(action='ignore')
+
+
+
+############### ModeL ####################
+
+models = {
+    "                     Linear Regression": LinearRegression(),
+    " Linear Regression (L2 Regularization)": Ridge(),
+    " Linear Regression (L1 Regularization)": Lasso(),
+    "                   K-Nearest Neighbors": KNeighborsRegressor(),
+    "                        Neural Network": MLPRegressor(),
+    "                         Decision Tree": DecisionTreeRegressor(),
+    "                         Random Forest": RandomForestRegressor(),
+    "                     Gradient Boosting": GradientBoostingRegressor(),
+    "                               XGBoost": XGBRegressor(),
+    "                              LightGBM": LGBMRegressor(),
+    "                              CatBoost": CatBoostRegressor(verbose=0)
+}
+
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    print(name + " trained.")
+
