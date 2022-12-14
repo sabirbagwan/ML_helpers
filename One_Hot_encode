@@ -33,3 +33,14 @@ for column in ['column1', 'column2', 'column3']:
 weather_dummies = pd.get_dummies(df['weather_code'], prefix='weather')
 df = pd.concat([df, weather_dummies], axis=1)
 df = df.drop('weather_code', axis=1)
+
+
+
+##################################################################
+########### In preprocess_inputs function in looooppp ########################
+################################################################@#
+
+for column in ['Country', 'Continent']:
+    dummies = pd.get_dummies(df[column], prefix=column)
+    df = pd.concat([df, dummies], axis=1)
+    df = df.drop(column, axis=1)
