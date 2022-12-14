@@ -1,0 +1,45 @@
+
+onehot_transformer = Pipeline(steps=[
+    ('onehot', OneHotEncoder(sparse=False, drop='if_binary'))
+])
+
+preprocessor = ColumnTransformer(transformers=[
+    ('onehot', onehot_transformer, ['Institution', 'Course Subject'])
+], remainder='passthrough')
+
+model = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('scaler', StandardScaler()),
+    ('classifier', RandomForestClassifier(
+        random_state=1,
+        class_weight={
+            0: 1.0,
+            1: 1.0
+        }
+    ))
+])
+
+#################################
+
+model.fit(X_train, y_train)
+
+#############################
+
+y_pred = model.predict(X_test)
+
+acc = model.score(X_test, y_test)
+cm = confusion_matrix(y_test, y_pred, labels=[0, 1])
+clr = classification_report(y_test, y_pred, labels=[0, 1], target_names=["Negative", "Positive"])
+
+print("Accuracy: {:.2f}%".format(acc * 100))
+
+plt.figure(figsize=(6, 6))
+sns.heatmap(cm, annot=True, fmt='g', vmin=0, cmap='Blues', cbar=False)
+plt.xticks(ticks=[0.5, 1.5], labels=["Negative", "Positive"])
+plt.yticks(ticks=[0.5, 1.5], labels=["Negative", "Positive"])
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.title("Confusion Matrix")
+plt.show()
+
+print("Classification Report:\n---------------------\n", clr)
