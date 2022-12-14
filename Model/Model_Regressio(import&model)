@@ -40,3 +40,17 @@ for name, model in models.items():
     model.fit(X_train, y_train)
     print(name + " trained.")
 
+
+
+################### RMSE & R^2 ###################
+
+for name, model in models.items():
+    y_pred = model.predict(X_test)
+    rmse = np.sqrt(np.mean((y_test - y_pred)**2))
+    print(name + " RMSE: {:.4f}".format(rmse))
+    
+    
+for name, model in models.items():
+    y_pred = model.predict(X_test)
+    r2 = 1 - (np.sum((y_test - y_pred)**2) / np.sum((y_test - y_test.mean())**2))
+    print(name + " R^2: {:.5f}".format(r2))
