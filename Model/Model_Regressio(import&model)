@@ -31,7 +31,7 @@ models = {
     "                         Decision Tree": DecisionTreeRegressor(),
     "                         Random Forest": RandomForestRegressor(),
     "                     Gradient Boosting": GradientBoostingRegressor(),
-    "                               XGBoost": XGBRegressor(),
+    "                               XGBoost": XGBRegressor(), 
     "                              LightGBM": LGBMRegressor(),
     "                              CatBoost": CatBoostRegressor(verbose=0)
 }
