@@ -1,0 +1,35 @@
+def onehot_encode(df, column):
+    df = df.copy()
+    
+    dummies = pd.get_dummies(df[column], prefix = column)
+    if len(df[column].unique()) == 2:
+        dummies = dummies.drop(dummies.columns[0], axis = 1)
+        
+    df = pd.concat([df, dummies], axis = 1)
+    df = df.drop(column, axis = 1)
+    
+    return df
+    
+
+############ Checking which columns to hot encode
+
+{column: len(X[column].unique()) for column in X.select_dtypes('object').columns}.keys()
+
+    
+    
+    
+#### Function Call
+
+## One Hot encode categorical features:
+for column in ['column1', 'column2', 'column3']:
+    df = onehot_encode(df, column = column)
+    
+    
+##################################################################
+########### In preprocess_inputs function ########################
+################################################################@#
+
+# One-hot encode weather_code column
+weather_dummies = pd.get_dummies(df['weather_code'], prefix='weather')
+df = pd.concat([df, weather_dummies], axis=1)
+df = df.drop('weather_code', axis=1)
