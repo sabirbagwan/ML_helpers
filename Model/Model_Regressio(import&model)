@@ -54,3 +54,21 @@ for name, model in models.items():
     y_pred = model.predict(X_test)
     r2 = 1 - (np.sum((y_test - y_pred)**2) / np.sum((y_test - y_test.mean())**2))
     print(name + " R^2: {:.5f}".format(r2))
+
+
+
+############### Df #########################
+modell = []
+rmsel = []
+r2l = []
+for name, model in models.items():
+    y_pred = model.predict(X_test)
+    rmse = np.sqrt(np.mean((y_test - y_pred)**2))
+#     print(name + " RMSE: {:.4f}".format(rmse))
+    r2 = 1 - (np.sum((y_test - y_pred)**2) / np.sum((y_test - y_test.mean())**2))
+#     print(name + " R^2: {:.5f}".format(r2))
+    modell.append(name)
+    rmsel.append(rmse)
+    r2l.append(r2)
+df = pd.DataFrame({'ModelName': modell, 'RMSE': rmsel, 'R_squared': r2l})
+df
