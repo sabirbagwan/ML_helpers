@@ -4,13 +4,12 @@ def get_sequences(texts, tokenizer, train=True, max_seq_length = None):
     if train == True:
         max_seq_length = np.max(list(map(lambda x:len(x), sequences)))
         
-    sequences = tk.keras.preprocessing.sequences.pad_sequences(sequences, maxlen = max_seq_len, padding='post')
+    sequences = tf.keras.preprocessing.sequence.pad_sequences(sequences, maxlen = max_seq_length, padding='post')
     
     return sequences
     
     
 ########################################
-
 
 ## Create tokenizer
 tokenizer = tf.keras.preprocessing.text.Tokenizer(num_words = 30000)
