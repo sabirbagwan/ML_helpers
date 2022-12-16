@@ -9,6 +9,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.neural_network import MLPRegressor
+from sklearn.svm import LinearSVR, SVR
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from xgboost import XGBRegressor
@@ -19,7 +20,6 @@ import warnings
 warnings.filterwarnings(action='ignore')
 
 
-
 ############### ModeL ####################
 
 models = {
@@ -28,10 +28,12 @@ models = {
     " Linear Regression (L1 Regularization)": Lasso(),
     "                   K-Nearest Neighbors": KNeighborsRegressor(),
     "                        Neural Network": MLPRegressor(),
+    "Support Vector Machine (Linear Kernel)": LinearSVR(),
+    "   Support Vector Machine (RBF Kernel)": SVR(),
     "                         Decision Tree": DecisionTreeRegressor(),
     "                         Random Forest": RandomForestRegressor(),
     "                     Gradient Boosting": GradientBoostingRegressor(),
-    "                               XGBoost": XGBRegressor(), 
+    "                               XGBoost": XGBRegressor(),
     "                              LightGBM": LGBMRegressor(),
     "                              CatBoost": CatBoostRegressor(verbose=0)
 }
@@ -39,7 +41,6 @@ models = {
 for name, model in models.items():
     model.fit(X_train, y_train)
     print(name + " trained.")
-
 
 
 ################### RMSE & R^2 ###################
