@@ -25,7 +25,8 @@ model = tf.keras.Model(inputs=inputs, outputs=outputs)
 
 model.compile(
     optimizer='adam',
-    loss='binary_crossentropy',
+#     loss='binary_crossentropy',
+    loss = 'sparse_categorical_crossentropy',
     metrics=[
         'accuracy',
         tf.keras.metrics.AUC(name='auc')
