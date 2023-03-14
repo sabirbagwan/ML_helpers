@@ -72,4 +72,5 @@ for name, model in models.items():
     rmsel.append(rmse)
     r2l.append(r2)
 df = pd.DataFrame({'ModelName': modell, 'RMSE': rmsel, 'R_squared': r2l})
+df = df.sort_values(by=['RMSE'], ascending=True).reset_index(drop=True)
 df
