@@ -1,4 +1,5 @@
-## Imports
+############### Imports ########################
+
 import numpy as np
 import pandas as pd
 
@@ -25,6 +26,8 @@ y = data['color']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
 
 
+######## Defining Models ###################
+
 models = {
     "                   Logistic Regression": LogisticRegression(),
     "                   K-Nearest Neighbors": KNeighborsClassifier(),
@@ -39,6 +42,8 @@ models = {
     "                              CatBoost": CatBoostClassifier(verbose=0)
 }
 
+############# Running all the models in loop ###################
+
 for name, model in models.items():
     model.fit(X_train, y_train)
     print(name + " trained.")
@@ -46,7 +51,7 @@ for name, model in models.items():
     
     
     
-########################
+############## Accuracy Score #################################
 
 for name, model in models.items():
     print(name + ": {:.2f}%".format(model.score(X_test, y_test) * 100))
