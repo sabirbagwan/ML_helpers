@@ -55,3 +55,31 @@ for name, model in models.items():
 
 for name, model in models.items():
     print(name + ": {:.2f}%".format(model.score(X_test, y_test) * 100))
+    
+    
+asdf = pd.DataFrame(columns=['name', 'Acc score'])
+for name, model in models.items():
+    score = model.score(X_test, y_test)
+#     print(name + ": {:.2f}%".format(score * 100))
+    asdf.loc[len(asdf)] = [name, score]
+asdf = asdf.sort_values('Acc score', ascending = False)
+asdf
+
+############### Confustion matrix ##################
+
+svc = SVC()
+svc.fit(X_test, y_test)
+y_pred = svc.predict(X_test)
+
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+
+cm = confusion_matrix(y_test, y_pred)
+sns.heatmap(cm, annot = True, cmap = 'Blues')
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.show()
+
+############# Classification Report ###############
+
+print(classification_report(y_test, y_pred))
