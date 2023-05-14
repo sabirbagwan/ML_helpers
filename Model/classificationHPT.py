@@ -1,3 +1,20 @@
+from sklearn.linear_model import LogisticRegression
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from xgboost import XGBClassifier
+from lightgbm import LGBMClassifier
+from catboost import CatBoostClassifier
+from sklearn.svm import SVC
+
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
+
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score
+
+
 models = {
     "Logistic Regression": LogisticRegression(),
     "Linear Discriminant Analysis": LinearDiscriminantAnalysis(),
@@ -28,6 +45,25 @@ params = {
     "Support Vector Machine (RBF Kernel)": {"C": [0.1, 1, 10], "gamma": [0.01, 0.1, 1]}
 }
 
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+best_params = []
+
+for name, model in models.items():
+    if name in params:
+#         print('\n')
+        print("Tuning hyperparameters for " + name)
+        param_grid = params[name]
+        grid_search = GridSearchCV(model, param_grid=param_grid, cv=5, n_jobs=-1)
+        grid_search.fit(X_train, y_train)
+        print("Best parameters:", grid_search.best_params_)
+        models[name] = grid_search.best_estimator_
+#         best_params[name] = grid_search.best_params_
+    else:
+        print("Skipping " + name + " as it does not have any hyperparameters to tune.")
+
+
 results = []
 
 for name, model in models.items():
@@ -41,3 +77,4 @@ for name, model in models.items():
 
 results_df = pd.DataFrame(results, columns=["Model", "Accuracy", "Precision", "Recall", "F1 score", "ROC AUC"])
 results_df = results_df.sort_values(by=["Accuracy"], ascending=False)
+results_df
