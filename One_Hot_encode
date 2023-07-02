@@ -44,3 +44,15 @@ for column in ['Country', 'Continent']:
     dummies = pd.get_dummies(df[column], prefix=column)
     df = pd.concat([df, dummies], axis=1)
     df = df.drop(column, axis=1)
+
+
+
+#####################################
+
+encoder = LabelEncoder()
+
+data['map'] = encoder.fit_transform(data['map'])
+map_mappings = {index: label for index, label in enumerate(encoder.classes_)}
+
+data['round_winner'] = encoder.fit_transform(data['round_winner'])
+round_winner_mappings = {index: label for index, label in enumerate(encoder.classes_)}
