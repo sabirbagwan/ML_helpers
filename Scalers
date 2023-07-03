@@ -8,3 +8,9 @@ X_test = pd.DataFrame(scaler.transform(X_test), index=X_test.index, columns=X_te
 from sklearn.preprocessing import RobustScaler
 scaler = RobustScaler()
 X = scaler.fit_transform(X)
+
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+X_scaled = scaler.fit_transform(X)
+X = pd.DataFrame(X_scaled, index = X.index, columns = X.columns)
+X
